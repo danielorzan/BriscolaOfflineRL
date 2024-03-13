@@ -6,6 +6,7 @@ from human_env import CardGameEnvironment
 import torch
 import os
 from copy import deepcopy
+from ipywidgets import interact
 
 # Function to load images from a folder
 def load_images(folder_path, target_shape):
@@ -67,6 +68,7 @@ def draw_cards_result(card_names, card_images):
     # Clear the output
     clear_output(wait=True)
 
+@interact
 def human_input():
     while True:
         # Use a text input field to get user input
