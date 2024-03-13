@@ -20,6 +20,23 @@ def load_images(folder_path, target_shape):
             i += 1
     return images
 
+def human_input():
+    while True:
+        # Use a text input field to get user input
+        user_input = input("Enter a number (1, 2, or 3): ")
+
+        # Convert the input to an integer and check if it's 1, 2, or 3
+        try:
+            user_number = int(user_input)
+            if user_number in [1, 2, 3]:
+                print("You entered:", user_number)
+                break  # Exit the loop if the input is valid
+            else:
+                print("Invalid input. Please enter 1, 2, or 3.")
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
+    return user_number
+
 # Draw card images
 def draw_cards(agent, card_names, briscola, card_images):
     print(' '*7,'briscola',' '*11,'agent')
@@ -141,7 +158,7 @@ def game_loop():
                 not_valid_actions += wrongs
                 draw_cards(agent_action, env.opp, briscola, card_images)
                 #print("Your turn. Choose your action! 1, 2 or 3")
-                human_action = int(input())
+                human_action = human_input()
                 env.opp_card = env.opp[human_action-1]
                 running_reward = env.step(agent_action)
                 print("=" * 60)
@@ -165,7 +182,7 @@ def game_loop():
                 print("=" * 60)
                 draw_cards(40, env.opp, briscola, card_images)
                 #print("Your turn. Choose your action! 1, 2 or 3")
-                human_action = int(input())
+                human_action = human_input()
                 env.opp_card = env.opp[human_action-1]
                 env.state[1] = deepcopy(env.opp[human_action-1])
                 running_state = env.state_encoding()
