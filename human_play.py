@@ -6,6 +6,7 @@ from human_env import CardGameEnvironment
 import torch
 import os
 from copy import deepcopy
+from google.colab import widgets
 
 # Function to load images from a folder
 def load_images(folder_path, target_shape):
@@ -68,20 +69,41 @@ def draw_cards_result(card_names, card_images):
     clear_output(wait=True)
 
 def human_input():
-    while True:
-        # Use a text input field to get user input
-        user_input = input("Enter a number (1, 2, or 3): ")
 
-        # Convert the input to an integer and check if it's 1, 2, or 3
+    # Create a form widget
+    form = widgets.Form()
+    
+    # Add a text box for user input
+    text_input = widgets.Text(description="Enter a number (1, 2, or 3):")
+    form.children.append(text_input)
+    
+    # Display the form
+    display(form)
+
+    user_number = None
+
+    # Function to handle form submission
+    def handle_submit(sender):
+        nonlocal user_number
+
+        user_input = text_input.value
+        
         try:
             user_number = int(user_input)
             if user_number in [1, 2, 3]:
                 print("You entered:", user_number)
-                break  # Exit the loop if the input is valid
             else:
                 print("Invalid input. Please enter 1, 2, or 3.")
         except ValueError:
             print("Invalid input. Please enter a valid integer.")
+    
+    # Register the callback function to handle form submission
+    form.on_submit(handle_submit)
+
+    # Wait for user input
+    while user_number is None:
+        pass
+    
     return user_number
 
 def game_loop():
