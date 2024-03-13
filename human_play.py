@@ -6,7 +6,6 @@ from human_env import CardGameEnvironment
 import torch
 import os
 from copy import deepcopy
-from google.colab import widgets
 
 # Function to load images from a folder
 def load_images(folder_path, target_shape):
@@ -67,44 +66,6 @@ def draw_cards_result(card_names, card_images):
 
     # Clear the output
     clear_output(wait=True)
-
-def human_input():
-
-    # Create a form widget
-    form = widgets.Form()
-    
-    # Add a text box for user input
-    text_input = widgets.Text(description="Enter a number (1, 2, or 3):")
-    form.children.append(text_input)
-    
-    # Display the form
-    display(form)
-
-    user_number = None
-
-    # Function to handle form submission
-    def handle_submit(sender):
-        nonlocal user_number
-
-        user_input = text_input.value
-        
-        try:
-            user_number = int(user_input)
-            if user_number in [1, 2, 3]:
-                print("You entered:", user_number)
-            else:
-                print("Invalid input. Please enter 1, 2, or 3.")
-        except ValueError:
-            print("Invalid input. Please enter a valid integer.")
-    
-    # Register the callback function to handle form submission
-    form.on_submit(handle_submit)
-
-    # Wait for user input
-    while user_number is None:
-        pass
-    
-    return user_number
 
 def game_loop():
     env = CardGameEnvironment()
@@ -180,8 +141,7 @@ def game_loop():
                 not_valid_actions += wrongs
                 draw_cards(agent_action, env.opp, briscola, card_images)
                 #print("Your turn. Choose your action! 1, 2 or 3")
-                print('\n\n\n\n\n\n\n\n\n')
-                human_action = human_input()
+                human_action = int(input())
                 env.opp_card = env.opp[human_action-1]
                 running_reward = env.step(agent_action)
                 print("=" * 60)
@@ -195,9 +155,9 @@ def game_loop():
                     print("End of game")
                     env.save_game()
                     if env.points_count[0] < env.points_count[1]:
-                        print("Human player wins!")
+                        print("You win with", env.points_count[1], "points!")
                     else:
-                        print("Agent wins!")
+                        print("Agent wins with", env.points_count[0], "points!")
                     done = True
                 
             else: # Human player's turn
@@ -205,8 +165,7 @@ def game_loop():
                 print("=" * 60)
                 draw_cards(40, env.opp, briscola, card_images)
                 #print("Your turn. Choose your action! 1, 2 or 3")
-                print('\n\n\n\n\n\n\n\n\n')
-                human_action = human_input()
+                human_action = int(input())
                 env.opp_card = env.opp[human_action-1]
                 env.state[1] = deepcopy(env.opp[human_action-1])
                 running_state = env.state_encoding()
@@ -225,9 +184,9 @@ def game_loop():
                     print("End of game")
                     env.save_game()
                     if env.points_count[0] < env.points_count[1]:
-                        print("You win!")
+                        print("You win with", env.points_count[1], "points!")
                     else:
-                        print("Agent wins!")
+                        print("Agent wins with", env.points_count[0], "points!")
                     done = True
             
             #env.render()
