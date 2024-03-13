@@ -84,7 +84,7 @@ def game_loop():
     n_heads = 4             # num of transformer heads
     dropout_p = 0.1         # dropout probability
 
-    eval_chk_pt_dir = "dt_runs/"
+    eval_chk_pt_dir = "./"
     eval_chk_pt_name = "model_03-23-05_7_0.0001_0.001_128_16_256_2_4_0.1_best_eval.pt"
 
     eval_chk_pt_path = os.path.join(eval_chk_pt_dir, eval_chk_pt_name)
