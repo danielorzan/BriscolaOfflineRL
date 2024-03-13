@@ -6,7 +6,7 @@ from human_env import CardGameEnvironment
 import torch
 import os
 from copy import deepcopy
-from ipywidgets import interact, Layout
+from google.colab import widgets
 
 # Function to load images from a folder
 def load_images(folder_path, target_shape):
@@ -69,6 +69,9 @@ def draw_cards_result(card_names, card_images):
     clear_output(wait=True)
 
 def human_input():
+    text_input = widgets.Text()
+    display(text_input)
+
     while True:
         # Use a text input field to get user input
         user_input = input("Enter a number (1, 2, or 3): ")
@@ -159,7 +162,7 @@ def game_loop():
                 not_valid_actions += wrongs
                 draw_cards(agent_action, env.opp, briscola, card_images)
                 #print("Your turn. Choose your action! 1, 2 or 3")
-                human_action = interact(human_input, layout=Layout(width='100px'))
+                human_action = human_input()
                 env.opp_card = env.opp[human_action-1]
                 running_reward = env.step(agent_action)
                 print("=" * 60)
@@ -183,7 +186,7 @@ def game_loop():
                 print("=" * 60)
                 draw_cards(40, env.opp, briscola, card_images)
                 #print("Your turn. Choose your action! 1, 2 or 3")
-                human_action = interact(human_input, layout=Layout(width='100px'))
+                human_action = human_input()
                 env.opp_card = env.opp[human_action-1]
                 env.state[1] = deepcopy(env.opp[human_action-1])
                 running_state = env.state_encoding()
