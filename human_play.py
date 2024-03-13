@@ -1,6 +1,6 @@
 from decision_transformer import DecisionTransformer
 from PIL import Image, ImageDraw, ImageFont
-from IPython.display import display, clear_output, Markdown
+from IPython.display import display, clear_output
 import time
 from human_env import CardGameEnvironment
 import torch
@@ -158,7 +158,7 @@ def game_loop():
                 not_valid_actions += wrongs
                 draw_cards(agent_action, env.opp, briscola, card_images)
                 #print("Your turn. Choose your action! 1, 2 or 3")
-                display(Markdown("Enter a number (1, 2, or 3) in the cell below:"))
+                print('\n\n\n\n\n\n\n\n\n')
                 human_action = human_input()
                 env.opp_card = env.opp[human_action-1]
                 running_reward = env.step(agent_action)
@@ -183,7 +183,7 @@ def game_loop():
                 print("=" * 60)
                 draw_cards(40, env.opp, briscola, card_images)
                 #print("Your turn. Choose your action! 1, 2 or 3")
-                display(Markdown("Enter a number (1, 2, or 3) in the cell below:"))
+                print('\n\n\n\n\n\n\n\n\n')
                 human_action = human_input()
                 env.opp_card = env.opp[human_action-1]
                 env.state[1] = deepcopy(env.opp[human_action-1])
