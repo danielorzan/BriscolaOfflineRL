@@ -1,5 +1,5 @@
 from decision_transformer import DecisionTransformer
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
 from IPython.display import display, clear_output
 import time
 from human_env import CardGameEnvironment
@@ -29,7 +29,6 @@ def human_input():
         try:
             user_number = int(user_input)
             if user_number in [1, 2, 3]:
-                print("You entered:", user_number)
                 break  # Exit the loop if the input is valid
             else:
                 print("Invalid input. Please enter 1, 2, or 3.")
