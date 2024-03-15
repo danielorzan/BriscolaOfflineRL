@@ -26,7 +26,7 @@ def game_play():
     n_heads = 4             # num of transformer heads
     dropout_p = 0.1         # dropout probability
 
-    eval_chk_pt_dir = ""
+    eval_chk_pt_dir = "./"
     eval_chk_pt_name = "model_03-23-05_7_0.0001_0.001_128_16_256_2_4_0.1_best_eval.pt"
 
     eval_chk_pt_path = os.path.join(eval_chk_pt_dir, eval_chk_pt_name)
@@ -48,9 +48,12 @@ def game_play():
 
     target_shape = (100,180)
     # Load card images
-    card_folder = 'mazzo_briscola'
+    card_folder = './mazzo_briscola'
     card_images = load_images(card_folder,target_shape)
 
+    # Disable audio driver
+    os.environ["SDL_AUDIODRIVER"] = "dummy"  # Use dummy audio driver
+    
     # Initialize Pygame
     pygame.init()
 
